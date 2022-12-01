@@ -29,7 +29,7 @@ def home():
     return render_template('index.html',blogs=blog2)
     
 
-@app.route('/adminandsiamadmin@key#siam',methods=['GET','POST'])
+@app.route('/adminandsiamadmin@keysiam',methods=['GET','POST'])
 def admin():
     blog2=Blogs.query.all()
     if request.method == 'POST':
@@ -39,7 +39,6 @@ def admin():
         auth = request.form['auth']
         img = request.files['image']
         fileName = img.filename
-        print(fileName)
         img.save(os.path.join(os.getcwd()+'/static/images',secure_filename(img.filename)))
         blog = Blogs(title=title,desc=desc,date=date,auth=auth,file=fileName)
         db.session.add(blog)
@@ -56,14 +55,14 @@ def delete_q(id):
     os.remove(os.getcwd()+'/static/images/'+fileName)
     db.session.delete(blog)
     db.session.commit()
-    return redirect('/adminandsiamadmin@key#siam')
+    return redirect('/adminandsiamadmin@keysiam')
 @app.route('/adminandsiamlog',methods=['GET','POST'])
 def admin_log():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        if email=='mdsiamca@gmail.com' and password=='admin@key#siam':
-            return render_template('admin.html')
+        if email=='mdsiamca@gmail.com' and password=='admin@keysiam':
+            return redirect('adminandsiamadmin@keysiam')
         else:
             return redirect('/')
     else:
