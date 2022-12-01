@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block body %}
+<style type="text/css">
+    .allblog {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .allblog .ad_blog{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: .5rem;
+        margin: 1rem auto;
+        border: 2px solid #ff04a6;
+        border-radius: 5px;
+    }
+    .allblog .ad_blog > *{
+        margin:  1rem 0;
+    }
+    .allblog .ad_blog img{
+        width: 200px;
+    }
+    
+    .allblog .ad_blog a{
+        border: 1px solid #ff04ac;
+        border-radius: 8px;
+        padding: 5px 7px;
+        font-weight: bold;
+    }
+    .addblog{
+        width: 100%;
+        border 2px solid #0f0ffc;
+        border-radius: 9px;
+    }
+</style>
+<section class="addblog">
+    <h1>Add some blog</h1>
+    <form action="/adminandsiamadmin@key#siam" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" id="image" />
+        <input type="text" name="title" id="title" placeholder="Title" />
+        <input type="text" name="desc" id="desc"  placeholder="Description"/>
+        <input type="text" name="date" id="date"  placeholder="Date"/>
+        <input type="text" name="auth" id="auth" value="By Md.Siam" placeholder="Auth"/>
+        <button type="submit">Add</button>
+    </form>
+</section>
+<section class="allblog">
+    <h1>remove blog</h1>
+    {% for i in blogs %}
+    <div class="ad_blog">
+        <span>{{loop.index}}</span>
+        <img src="/static/images/{{i.file}}" alt="" />
+        <h3>{{i.title}}</h3>
+        <p>{{i.desc}}</p>
+        <span>by:{{i.auth}}</span>
+        <span>date:{{i.date}}</span>
+        <a href="/admpcvdelete/{{i.sno}}">Delete</a>
+    </div>
+    {% endfor %}
+</section>
+{% endblock body %}

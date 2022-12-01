@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block body %}
+<header>
+    <span class="official-color">MD SIAM SEO</span>
+    <h1>Welcome to my official <span class="official-color">BLOGS</span></h1>
+    <p>This is a secondary page of our official webpage . to return on this page click the link below.</p>
+    <a target="_blank" href="https://siam.risosi.com/">official page</a>
+</header>
+<section class="blogs">
+    {% for i in blogs|reverse %}
+    <div class="blog">
+        <div class="img">
+            <img src="/static/images/{{i.file}}" alt="" />
+        </div>
+        <div class="editor-date">
+            <span class="official-color">{{i.auth}}</span>
+            <span><svg style="line-height: 18px;" height="14" xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><title>Calendar</title><rect fill="none" stroke="lightgray" stroke-linejoin="round" stroke-width="32" x="48" y="80" width="416" height="384" rx="48" /><circle fill="lightgray" cx="296" cy="232" r="24" /><circle fill="lightgray" cx="376" cy="232" r="24" /><circle fill="lightgray" cx="296" cy="312" r="24" /><circle fill="lightgray" cx="376" cy="312" r="24" /><circle fill="lightgray" cx="136" cy="312" r="24" /><circle fill="lightgray" cx="216" cy="312" r="24" /><circle fill="lightgray" cx="136" cy="392" r="24" /><circle fill="lightgray" cx="216" cy="392" r="24" /><circle fill="lightgray" cx="296" cy="392" r="24" /><path fill="none" stroke="lightgray" stroke-linejoin="round" stroke-width="32" stroke-linecap="round" d="M128 48v32M384 48v32" /><path fill="none" stroke="lightgray" stroke-linejoin="round" stroke-width="32" d="M464 160H48" /></svg>{{i.date}}</span>
+        </div>
+        <div class="content">
+            <h3>{{i.title}}</h3>
+            <p>{{i.desc}}</p>
+            <a href="#">Read more</a>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% endblock body %}
