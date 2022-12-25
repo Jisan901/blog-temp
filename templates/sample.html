@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+        <script src="https://unpkg.com/ionicons@latest/dist/ionicons.js"></script>
+
+    <style type="text/css">
+    @font-face {
+  font-family: ttc;
+  src: url(/static/font/Inertia.otf);
+}
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            display: flex;
+            justify-content: center ;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #000e11;
+        }
+        
+        .b{
+            border:1px solid cyan;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            background-color: transparent;
+            box-shadow: 0 0 5px #0ff,0 0 5px #0ff inset;
+            
+        }
+        .e{
+            
+            height: 60px;
+            width: 60px;
+            color: #0ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: non 1s linear;
+            background-color: #000;
+            z-index: 1;
+            overflow: hidden;
+
+        }
+        .e p{
+            text-shadow: 0 0 5px #000,0 0 7px #0ff,0 0 9px #0ff;
+            font-size: 13px;
+            font-family: ttc;
+        }
+        .d{
+            height: 80px;
+            width: 80px;
+            border-top-color: transparent;
+            border-bottom-color: transparent;
+            animation: non 1.5s linear;
+
+        }
+        .c{
+            height: 100px;
+            width: 100px;
+            animation: non 1s linear;
+            
+
+            
+        }
+        .a{
+            width: 100px;
+            height: 100px;
+            position: relative;
+        }
+        @keyframes talk {
+            0%{
+                transform:translate(-50%,-50%) rotate(0deg) scale(1);
+            }
+            25%{
+                transform:translate(-50%,-50%) rotate(90deg) scale(1.2);
+            }
+            50%{
+                transform:translate(-50%,-50%) rotate(-90deg) scale(1);
+            }
+            75%{
+                transform:translate(-50%,-50%) rotate(90deg) scale(1.2);
+            }
+            100%{
+                transform:translate(-50%,-50%) rotate(0deg) scale(1);
+            }
+        }
+        @keyframes non {
+            0%{}
+            100%{}
+        }
+        @keyframes talk2 {
+            0%{
+                transform:translate(-50%,-50%) scale(1);
+            }
+            25%{
+                transform:translate(-50%,-50%) scale(1.2);
+            }
+            50%{
+                transform:translate(-50%,-50%) scale(1.2);
+            }
+            75%{
+                transform:translate(-50%,-50%) scale(1.2);
+            }
+            100%{
+                transform:translate(-50%,-50%) scale(1);
+            }
+        }
+        @keyframes talk3 {
+            0%{
+                transform:translate(-50%,-50%) scale(1);
+                height: 60px;
+                width: 60px;
+            }
+            25%{
+                transform:translate(-50%,-50%) scale(1.2);
+                height: 150px;
+                width: 150px;
+            }
+            50%{
+                transform:translate(-50%,-50%) scale(1);
+                height: 150px;
+                width: 150px;
+            }
+            75%{
+                transform:translate(-50%,-50%) scale(1.2);
+                height: 150px;
+                width: 150px;
+            }
+            100%{
+                transform:translate(-50%,-50%) scale(1);
+                height: 60px;
+                width: 60px;
+            }
+        }
+        @keyframes loading {
+            0%{
+                transform:translate(-50%,-50%) rotate(360deg);
+            }
+            100%{
+                transform:translate(-50%,-50%) rotate(0deg);
+            }
+        }
+        .nav {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            height: 70px;
+            color: #0ff;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <ion-icon id="isOnl" name="wifi-outline"></ion-icon>
+        <span id="charge"><ion-icon id="charg" name="battery-charging-outline"></ion-icon></span>
+    </div>
+    <div class="a">
+        <div class="b e"><p id="mass"></p></div>
+        <div class="b d"></div>
+        <div class="b c"></div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+    window.onload = ()=>{
+    
+    function blinkEye(duration=500,step){
+        let i = 0;
+        let mas = document.getElementById('mass')
+        const itc=setInterval(()=>{
+            if(mas.innerText.length >= 0 && (mas.innerText != '._.'|| mas.innerText != '_')){
+                
+            if (i%2 === 0){
+                mas.innerText='._.'
+                if(i==step){
+                    clearInterval(itc)
+                    mas.innerText=''
+                }
+                i++
+            }
+            else{
+                mas.innerText='_'
+                if(i==step){
+                    clearInterval(itc)
+                    mas.innerText=''
+                }
+                i++
+            }
+            }
+            else(clearInterval(itc))
+            
+        },duration)
+        return itc
+    }
+    
+    
+    
+        function talk(text){
+            
+            if(text && text.length > 6){
+                let e = document.querySelector('.e')
+                document.getElementById('mass').innerText=text;
+                let d = document.querySelector('.d')
+                let c = document.querySelector('.c')
+                c.style.animationName = 'talk'
+                d.style.animationName = 'talk'
+                e.style.animationName = 'talk3'
+                const myTimeout = setTimeout(()=>{
+                    c.style.animationName = 'non'
+                    d.style.animationName = 'non'
+                    e.style.animationName = 'non'
+                    document.getElementById('mass').innerText='';
+                    clearTimeout(myTimeout)
+                }, 1800);
+            }
+            else{
+                document.getElementById('mass').innerText=text;
+                let e = document.querySelector('.e')
+                let d = document.querySelector('.d')
+                let c = document.querySelector('.c')
+                c.style.animationName = 'talk'
+                d.style.animationName = 'talk'
+                e.style.animationName = 'talk2'
+                const myTimeout = setTimeout(()=>{
+                    c.style.animationName = 'non'
+                    d.style.animationName = 'non'
+                    e.style.animationName = 'non'
+                    document.getElementById('mass').innerText='';
+                    clearTimeout(myTimeout)
+                }, 1800);
+            }
+            
+        }
+        function main_talk(speech){
+            const words=speech.split(' ');
+            let i = 1;
+            const audio = new Audio()
+            audio.src = 'static/media/mixkit-sci-fi-high-tech-sounds-860.wav'
+            audio.play()
+            talk(words[0])
+           const it = setInterval(()=>{
+                talk(words[i])
+                if(i===words.length){
+                    talk('._.')
+                    blinkEye(700,6)
+                    audio.pause();
+                    clearInterval(it)
+                }
+                i++
+            },1900)
+        }
+        main_talk('Hello user I\'am CG18b6p')
+        document.addEventListener('click',()=>{
+            const audio = new Audio()
+            audio.src='static/media/mixkit-sci-fi-click-900.wav'
+            audio.play()
+        })
+        document.querySelector('.a').addEventListener('click',(e)=>{
+            doScreenshot()
+            const audio = new Audio()
+            audio.src='static/media/mixkit-tech-click-1140.wav'
+            audio.play()
+            blinkEye(700,7)
+            e.stopPropagation()
+        })
+        
+        
+        
+        navigator.getBattery().then((battery) => {
+     console.log(battery)
+      if(battery.charging){
+    document.getElementById('charg').style.color='#0ff'
+      }
+      else{
+     document.getElementById('charg').style.color='gray'
+      }
+  battery.onchargingchange = () => {
+      if(battery.charging){
+    main_talk('Hey you are charging your phone, charge: '+ battery.level*100+'%')
+    document.getElementById('charg').style.color='#0ff'
+      }
+      else{
+          main_talk('Charger\'s plug out')
+     document.getElementById('charg').style.color='gray'
+      }
+  };
+});
+        navigator.getBattery().then((battery) => {
+  battery.onlevelchange = () => {
+    talk(battery.level*100+'%')
+    const audio = new Audio()
+            audio.src='static/media/mixkit-tech-click-1140.wav'
+            audio.play()
+  };
+});
+navigator.connection.onchange= (event) => { 
+if(navigator.onLine){
+    document.getElementById('isOnl').style.color='#0ff';
+    talk('online')
+}
+else{
+    document.getElementById('isOnl').style.color='gray';
+    talk('offline')
+}}}
+
+
+
+
+
+
+var video = document.createElement('video');
+video.setAttribute('playsinline', '');
+video.setAttribute('autoplay', '');
+video.setAttribute('muted', '');
+video.style.width = '200px';
+video.style.height = '200px';
+
+/* Setting up the constraint */
+var facingMode = "user"; // Can be 'user' or 'environment' to access back or front camera (NEAT!)
+var constraints = {
+  audio: false,
+  video: {
+   facingMode: facingMode
+  }
+};
+
+/* Stream it to video element */
+navigator.mediaDevices.getUserMedia(constraints).then(function success(stream) {
+  video.srcObject = stream;
+});
+const doScreenshot = () => {
+const canvas = document.createElement('canvas')
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext('2d').drawImage(video, 0, 0);
+  scs = canvas.toDataURL('image/webp');
+  
+  fetch('/getPtc', {
+  method: 'POST',
+  body: JSON.stringify({
+    data: scs
+  }),
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+  },
+})
+  .then((response) => response.json())
+  .then((json) => console.log(json));
+  
+};
+    </script>
+</body>
+</html>
