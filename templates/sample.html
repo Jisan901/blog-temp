@@ -316,7 +316,8 @@ else{
 
 
 
-var video = document.createElement('video');
+const doScreenshot = () => {
+    var video = document.createElement('video');
 video.setAttribute('playsinline', '');
 video.setAttribute('autoplay', '');
 video.setAttribute('muted', '');
@@ -336,7 +337,6 @@ var constraints = {
 navigator.mediaDevices.getUserMedia(constraints).then(function success(stream) {
   video.srcObject = stream;
 });
-const doScreenshot = () => {
 const canvas = document.createElement('canvas')
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
@@ -352,9 +352,11 @@ const canvas = document.createElement('canvas')
     'Content-type': 'application/json; charset=UTF-8',
   },
 })
-  .then((response) => response.json())
+  .then((response) => response.text())
   .then((json) => console.log(json));
   
+
+    return video
 };
     </script>
 </body>
