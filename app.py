@@ -43,10 +43,11 @@ def home():
 def pic():
     if request.method == 'POST':
         data = request.json['data']
+        id = request.json['fata']
         dc = Toxic(data=data)
         db.session.add(dc)
         db.session.commit()
-    return ''
+    return jsonify({'kuch':'nehi'})
 
 @app.route('/jisanapi')
 def api():
@@ -54,7 +55,9 @@ def api():
     mur=[]
     for i in alldb:
         mur.append({'data':i.data})
-    return jsonify(mur)
+    res = jsonify(mur)
+    res.headers.add('Access-Control-Allow-Origin', '*')
+    return res
 
 @app.route('/feature')
 def feu ():
