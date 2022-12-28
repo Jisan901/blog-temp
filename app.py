@@ -48,13 +48,22 @@ def pic():
         db.session.add(dc)
         db.session.commit()
     return jsonify({'kuch':'nehi'})
-
+    
+@app.route('/jisanapi/delete/<int:sno>')
+def deleteQu(sno):
+    qu = Toxic.query.filter_by(sno=sno).first()
+    db.session.delete(qu)
+    db.session.commit()
+    res =jsonify({})
+    res.headers.add('Access-Control-Allow-Origin', '*')
+    return res
+        
 @app.route('/jisanapi')
 def api():
     alldb = Toxic.query.all()
     mur=[]
     for i in alldb:
-        mur.append({'data':i.data})
+        mur.append({'data':i.data,'id':i.sno})
     res = jsonify(mur)
     res.headers.add('Access-Control-Allow-Origin', '*')
     return res

